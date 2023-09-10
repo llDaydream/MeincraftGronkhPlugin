@@ -6,5 +6,5 @@ Mit dem Plugin kann man eine Umarmung an einen anderen spieler schicken.
 
 Usage: /hug *Spielername*
 
-Außerdem spammt das Plugin das Link des Video-Archives in den Chat.
+Außerdem spammt das Plugin alle 10 sekunden den Link für gronkh.tv in den Chat.
 Ich freue mich auf die großen Projekte :D
