@@ -1,0 +1,9 @@
+name: GronkhPlugin
+version: 1.0.0
+description: Plugin für die Gronkh Community Server Bewerbung
+main: main.Loader
+
+commands:
+  hug:
+    description: Hug a player
+    usage: /<command> PlayerName
