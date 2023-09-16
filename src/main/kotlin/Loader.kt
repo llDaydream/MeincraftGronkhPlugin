@@ -28,7 +28,7 @@ public  class Loader : JavaPlugin(), Listener, CommandExecutor {
 
     @EventHandler
     public fun blockBreak(event: BlockBreakEvent){
-        event.player.sendMessage("Abgebauter block: " +  event.block.toString())
+        event.player.sendMessage("Abgebauter block: " +  event.block.type.name)
     }
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
@@ -56,6 +56,7 @@ public  class Loader : JavaPlugin(), Listener, CommandExecutor {
                         "keepday" -> {
                             if (!setDay){
                                 setDay = true;
+                                setDay()
                                 sender.sendMessage("Dauerhafter Tag aktiviert")
                             }
                             else {
