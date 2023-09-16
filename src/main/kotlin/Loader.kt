@@ -7,19 +7,28 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 public  class Loader : JavaPlugin(), Listener, CommandExecutor {
 
+    var setDay = false;
+
     override fun onEnable() {
         Bukkit.getPluginManager().registerEvents(this, this)
         Bukkit.getScheduler().runTaskTimer(this, showGronkhTvMessage(), 20*3, 20*10)
+        Bukkit.getScheduler().runTaskTimer(this, setDay(),  20*10, 20*30)
     }
 
     @EventHandler
     public fun joinEvent(event: PlayerJoinEvent){
         event.player.sendMessage("Herzlich Willkommen auf dem Gronkh Minecraft Testserver")
+    }
+
+    @EventHandler
+    public fun blockBreak(event: BlockBreakEvent){
+        event.player.sendMessage("Abgebauter block: " +  event.block.toString())
     }
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
@@ -43,6 +52,17 @@ public  class Loader : JavaPlugin(), Listener, CommandExecutor {
 
                             }
                         }
+
+                        "keepday" -> {
+                            if (!setDay){
+                                setDay = true;
+                                sender.sendMessage("Dauerhafter Tag aktiviert")
+                            }
+                            else {
+                                setDay = false
+                                sender.sendMessage("Dauerhafter Tag deaktiviert")
+                            }
+                        }
                     }
                 }
 
@@ -54,5 +74,21 @@ public  class Loader : JavaPlugin(), Listener, CommandExecutor {
             Bukkit.broadcastMessage("Besuche https://gronkh.tv")
         }
         return runnable
+    }
+
+    private fun setDay() : Runnable {
+
+        var r : Runnable = Runnable {
+            if (setDay){
+                val worlds = Bukkit.getWorlds()
+                for(world in worlds){
+                    if (world.time > 13000){
+                        world.time = 0
+                    }
+                }
+            }
+        }
+
+        return r;
     }
 }

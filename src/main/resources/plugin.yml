@@ -7,3 +7,6 @@ commands:
   hug:
     description: Hug a player
     usage: /<command> PlayerName
+  keepday:
+    description: Tag-Nacht-Wechsel ein- und ausschalten
+    usage: /<command>
